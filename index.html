@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valentine 💕</title>
+<title>Questioooooooon</title>
 
 <!-- Fuente bonita y legible -->
 <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
@@ -152,31 +152,44 @@ button{
 
 <body>
 
-<!-- SCREEN 1 -->
+<!-- ============================
+     PANTALLA 1 - INICIAL
+     Texto principal. Puedes agregar imagen debajo si quieres.
+============================= -->
 <div id="screen1" class="screen">
-    <h1 class="arcade-title">🌷 Feliz San Valentín 🌷</h1>
+    <h1 class="arcade-title">🌷 San Valentín 🌷</h1>
+    <!-- Imagen opcional en pantalla 1 -->
+    <!-- <img src="URL_DE_TU_IMAGEN" width="200"> -->
 </div>
 
-<!-- SCREEN 2 -->
+<!-- ============================
+     PANTALLA 2 - PREGUNTA
+     Contiene GIF animado
+============================= -->
 <div id="screen2" class="screen">
     <h1 class="question">¿Quieres ser mi San Valentín?</h1>
-    <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="140">
+    <!-- Imagen animada de la pantalla 2 -->
+    <!-- <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="140">            -->
+    <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDk5enMyNHF1MzI1NzY3aHRydGg3ODN2ZWk1YXF6a3FmbXpnendmeiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KOCT8iUWuXg6MSoytA/giphy.gif" width="140">
     <div>
-        <button id="yes" onclick="sayYes()">Sí 💚</button>
+        <button id="yes" onclick="sayYes()">Sí</button>
         <button id="no" onmouseover="moveButton()">No</button>
     </div>
 </div>
 
-<!-- SCREEN FINAL -->
+<!-- ============================
+     PANTALLA FINAL
+     Contiene imagen animada y mensajes
+============================= -->
 <div id="finalScreen" class="screen">
-    <div class="final-title" id="finalTitle">¡¡Siuuuuuuuu!! Lo sabía a la primera!! Por eso te amo 💖</div>
-    <img class="final-img" id="finalImg" src="https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif">
-    <div class="final-subtitle" id="finalSubtitle">Vamos por nuestro día especial 💕</div>
-    <button id="repeat" onclick="location.reload()">Repito !! 💚</button>
+    <div class="final-title" id="finalTitle">¡¡Siuuuuuuuu!! Lo sabía a la primera!! Por eso te amo</div>
+    <!-- Imagen animada de la pantalla final -->
+    <img class="final-img" id="finalImg" src="https://i.giphy.com/l0MYt5jPR6QX5pnqM.webp">
+    <div class="final-subtitle" id="finalSubtitle">Vamos por nuestro día especial</div>
+    <button id="repeat" onclick="location.reload()">Repito !!</button>
 </div>
 
 <script>
-
 // TRANSICIÓN INICIAL
 setTimeout(()=>{
     document.getElementById("screen1").style.opacity="0";
@@ -249,7 +262,6 @@ function sayYes(){
         },1500);
     },800);
 }
-
 </script>
 
 </body>
