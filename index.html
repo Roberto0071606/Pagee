@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valentine 💕</title>
 
-<!-- Fuente romántica -->
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<!-- Fuente bonita y legible -->
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
 body{
@@ -34,8 +34,8 @@ body{
 }
 
 .arcade-title{
-    font-family: 'Great Vibes', cursive;
-    font-size:5em;
+    font-family: 'Pacifico', cursive;
+    font-size:4.5em;
     color:#ff99cc;
     animation:pulse 2s infinite alternate;
 }
@@ -83,6 +83,47 @@ button{
     position:relative;
 }
 
+/* SOBRE ANIMADO */
+.envelope-container{
+    position:relative;
+    width:220px;
+    height:140px;
+    margin:20px auto;
+    cursor:pointer;
+}
+
+.envelope{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#ffb6c1;
+    border-radius:5px;
+    z-index:1;
+    transition:1s;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+.envelope:before{
+    content:"";
+    position:absolute;
+    width:0;
+    height:0;
+    border-left:110px solid transparent;
+    border-right:110px solid transparent;
+    border-bottom:70px solid #ff99cc;
+    top:-70px;
+    left:0;
+    transition:1s;
+    z-index:2;
+}
+
+.envelope.open:before{
+    transform:rotateX(180deg);
+}
+
 /* PANTALLA FINAL */
 #finalScreen{
     background:#fff0f5;
@@ -92,28 +133,27 @@ button{
 }
 
 .final-title{
-    font-size:2.5em;
-    margin-bottom:10px;
+    font-size:2em;
+    margin:10px;
 }
 
 .final-img{
-    width:150px;
+    width:180px;
     margin:15px 0;
+    display:none; /* Se muestra al abrir sobre */
 }
 
-.letter{
-    width:80%;
-    max-width:500px;
-    min-height:50px;
-    white-space:pre-wrap;
-    overflow:hidden;
-    margin:20px auto;
-    font-size:1.3em;
+.final-subtitle{
+    font-size:1.2em;
+    margin-bottom:15px;
+    display:none; /* Se muestra al abrir sobre */
 }
 
 #repeat{
-    background:#99ff99;
+    background:#ffc0cb;
     color:white;
+    margin-top:20px;
+    display:none; /* Se muestra al abrir sobre */
 }
 
 /* Corazones */
@@ -146,8 +186,9 @@ button{
 
 @media(max-width:600px){
     .arcade-title{font-size:3em;}
-    .question{font-size:1.5em;}
-    .letter{font-size:1em;}
+    .question{font-size:1.4em;}
+    .final-title{font-size:1.5em;}
+    .final-subtitle{font-size:1em;}
 }
 </style>
 </head>
@@ -156,7 +197,7 @@ button{
 
 <!-- SCREEN 1 -->
 <div id="screen1" class="screen">
-    <h1 class="arcade-title">VALENTINE 💕</h1>
+    <h1 class="arcade-title">FELIZ SAN VALENTÍN 💕</h1>
 </div>
 
 <!-- SCREEN 2 -->
@@ -171,10 +212,13 @@ button{
 
 <!-- SCREEN FINAL -->
 <div id="finalScreen" class="screen">
-    <h1 class="final-title">Vamos por un día más especial juntos 💖</h1>
-    <img class="final-img" src="https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif">
-    <div class="letter" id="letter"></div>
-    <button id="repeat" onclick="location.reload()">Repito !! 💚</button>
+    <div class="envelope-container" onclick="openEnvelope()" id="envelopeContainer">
+        <div class="envelope" id="envelope"></div>
+    </div>
+    <div class="final-title" id="finalTitle">¡¡Siuuuuuuuu!! Lo sabía a la primera!! Por eso te amo 💖</div>
+    <img class="final-img" id="finalImg" src="https://media.giphy.com/media/xT0xeJpnrWC4XWblEk/giphy.gif">
+    <div class="final-subtitle" id="finalSubtitle">Vamos por nuestro día especial 💕</div>
+    <button id="repeat" onclick="location.reload()">Repito !! 💖</button>
 </div>
 
 <script>
@@ -190,7 +234,7 @@ setTimeout(()=>{
     },1500);
 },4000);
 
-// MENSAJES BOTÓN NO
+// BOTÓN NO DINÁMICO
 const messages=[
 "No me atrapas",
 "No ?",
@@ -200,14 +244,12 @@ const messages=[
 "Me seguiré escapando",
 "No"
 ];
-
 let messageIndex=0;
 
 function moveButton(){
     const button=document.getElementById("no");
     button.innerText=messages[messageIndex];
     messageIndex=(messageIndex+1)%messages.length;
-
     button.style.position="absolute";
     button.style.top=Math.random()*80+"%";
     button.style.left=Math.random()*80+"%";
@@ -240,23 +282,9 @@ function explodeHearts(){
     }
 }
 
-// CARTA ANIMADA (opcional, aquí queda lista para agregar texto extra)
-const text="";
-
-function typeLetter(){
-    let i=0;
-    const letter=document.getElementById("letter");
-    const interval=setInterval(()=>{
-        letter.textContent+=text.charAt(i);
-        i++;
-        if(i>=text.length) clearInterval(interval);
-    },40);
-}
-
 // AL PRESIONAR SÍ
 function sayYes(){
     explodeHearts();
-
     setTimeout(()=>{
         document.getElementById("screen2").style.opacity="0";
         setTimeout(()=>{
@@ -264,9 +292,21 @@ function sayYes(){
             let final=document.getElementById("finalScreen");
             final.style.opacity="1";
             final.style.pointerEvents="all";
-            typeLetter();
         },1500);
     },800);
+}
+
+// ABRIR SOBRE
+function openEnvelope(){
+    const envelope=document.getElementById("envelope");
+    const img=document.getElementById("finalImg");
+    const subtitle=document.getElementById("finalSubtitle");
+    const repeatBtn=document.getElementById("repeat");
+
+    envelope.classList.add("open");
+    img.style.display="block";
+    subtitle.style.display="block";
+    repeatBtn.style.display="block";
 }
 
 </script>
