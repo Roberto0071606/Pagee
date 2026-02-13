@@ -15,6 +15,7 @@ body{
     overflow:hidden;
 }
 
+/* PANTALLAS */
 .screen{
     position:absolute;
     width:100%;
@@ -26,6 +27,7 @@ body{
     transition:opacity 1.5s ease;
 }
 
+/* PANTALLA 1 */
 #screen1{ background:white; }
 
 .arcade-title{
@@ -40,6 +42,7 @@ body{
     to{transform:scale(1.1);}
 }
 
+/* PANTALLA 2 */
 #screen2{
     background:white;
     color:#ff99cc;
@@ -76,6 +79,7 @@ button{
     color:white;
 }
 
+/* PANTALLA FINAL */
 #finalScreen{
     background:#fff0f5;
     color:#808080;
@@ -83,9 +87,51 @@ button{
     pointer-events:none;
 }
 
-.final-title{ font-size:2em; margin:10px; }
-.final-img{ width:180px; margin:15px 0 40px 0; }
-.final-subtitle{ font-size:1.2em; margin-bottom:15px; }
+.final-title{
+    font-size:2em;
+    margin:10px;
+}
+
+.final-img{
+    width:180px;
+    margin:15px 0 40px 0;
+}
+
+.final-subtitle{
+    font-size:1.2em;
+    margin-bottom:15px;
+}
+
+/* TEXTO TE AMO */
+.teamo{
+    display:block;
+    font-size:1.6em;
+    margin-top:10px;
+    opacity:0;
+    animation:
+        aparecer 1.2s ease forwards,
+        latido 1.6s ease-in-out infinite;
+    animation-delay:1s, 2.2s;
+}
+
+@keyframes aparecer{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes latido{
+    0%{ transform:scale(1); }
+    25%{ transform:scale(1.08); }
+    40%{ transform:scale(1); }
+    60%{ transform:scale(1.08); }
+    100%{ transform:scale(1); }
+}
 
 #repeat{
     background:#808080;
@@ -94,6 +140,7 @@ button{
     margin-top:20px;
 }
 
+/* CORAZONES */
 .heart{
     position:fixed;
     font-size:20px;
@@ -101,9 +148,13 @@ button{
 }
 
 @keyframes fall{
-    to{ transform:translateY(100vh); opacity:0; }
+    to{
+        transform:translateY(100vh);
+        opacity:0;
+    }
 }
 
+/* EXPLOSIÓN */
 .explosion{
     position:fixed;
     font-size:25px;
@@ -144,9 +195,17 @@ button{
 
 <!-- PANTALLA FINAL -->
 <div id="finalScreen" class="screen">
-    <div class="final-title">Buenaaaa !! A la primera, estoy suponiendo 👀 jajajaja</div>
+    <div class="final-title">
+        Buenaaaa !! A la primera, estoy suponiendo 👀 jajajaja
+    </div>
+
     <img class="final-img" src="https://i.giphy.com/l0MYt5jPR6QX5pnqM.webp">
-    <div class="final-subtitle">Vamos por nuestro día especial Mi Amor Te Amo !!</div>
+
+    <div class="final-subtitle">
+        Vamos por nuestro día especial Mi Amor<br>
+        <span class="teamo">Te Amo !!</span>
+    </div>
+
     <button id="repeat" onclick="location.reload()">Repito !!</button>
 </div>
 
@@ -162,9 +221,8 @@ setTimeout(()=>{
     },1500);
 },4000);
 
-// ================= BOTÓN NO =================
-
-const buttonNo = document.getElementById("no");
+// BOTÓN NO
+const buttonNo=document.getElementById("no");
 
 const messages=[
 "No me atrapas",
@@ -215,8 +273,7 @@ buttonNo.addEventListener("touchstart",(e)=>{
     moveButton();
 });
 
-// ================= EFECTOS =================
-
+// LLUVIA CORAZONES
 function createHeart(){
     const heart=document.createElement("div");
     heart.classList.add("heart");
@@ -228,6 +285,7 @@ function createHeart(){
 }
 setInterval(createHeart,300);
 
+// EXPLOSIÓN
 function explodeHearts(){
     for(let i=0;i<25;i++){
         const heart=document.createElement("div");
@@ -242,6 +300,7 @@ function explodeHearts(){
     }
 }
 
+// BOTÓN SÍ
 function sayYes(){
     explodeHearts();
     setTimeout(()=>{
