@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Questioooooooon</title>
 
-<!-- Fuente bonita y legible -->
 <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 
 <style>
@@ -16,7 +15,6 @@ body{
     overflow:hidden;
 }
 
-/* PANTALLAS */
 .screen{
     position:absolute;
     width:100%;
@@ -28,7 +26,6 @@ body{
     transition:opacity 1.5s ease;
 }
 
-/* PANTALLA 1 */
 #screen1{
     background:white;
 }
@@ -46,7 +43,6 @@ body{
     to{transform:scale(1.1);}
 }
 
-/* PANTALLA 2 */
 #screen2{
     background:white;
     color:#ff99cc;
@@ -81,13 +77,11 @@ button{
 #no{
     background:#ff9999;
     color:white;
-    position:relative;
 }
 
-/* PANTALLA FINAL */
 #finalScreen{
     background:#fff0f5;
-    color:#808080;      /* Letras plomo */
+    color:#808080;
     opacity:0;
     pointer-events:none;
 }
@@ -99,7 +93,7 @@ button{
 
 .final-img{
     width:180px;
-    margin:15px 0 40px 0; /* arriba 15px, abajo 40px */
+    margin:15px 0 40px 0;
 }
 
 .final-subtitle{
@@ -108,9 +102,9 @@ button{
 }
 
 #repeat{
-    background:#808080; /* Botón color plomo */
-    color:white;        /* Letras blancas */
-    font-weight:bold;   /* Negrita */
+    background:#808080;
+    color:white;
+    font-weight:bold;
     margin-top:20px;
     padding:15px 35px;
     border:none;
@@ -119,7 +113,6 @@ button{
     transition:0.3s;
 }
 
-/* Corazones */
 .heart{
     position:fixed;
     font-size:20px;
@@ -133,7 +126,6 @@ button{
     }
 }
 
-/* Explosión */
 .explosion{
     position:fixed;
     font-size:25px;
@@ -158,46 +150,29 @@ button{
 
 <body>
 
-<!-- ============================
-     PANTALLA 1 - INICIAL
-     Texto principal. Puedes agregar imagen debajo si quieres.
-============================= -->
 <div id="screen1" class="screen">
     <h1 class="arcade-title">🌷 Valentín 🌷</h1>
-    <!-- <img src="https://i.giphy.com/WvBqTq9UVvknVCBsSg.webp" width="180"> -->
     <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdTRmYnk4M2U2cHY0ODd6d2g5dnVyd2ZmZDVjNW1lbGdvdjg5emw1diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4KhIMlM9cEEcTXW0/giphy.gif" width="280">
-    <!-- Imagen opcional en pantalla 1 -->
-    <!-- <img src="URL_DE_TU_IMAGEN" width="200"> -->
 </div>
 
-<!-- ============================
-     PANTALLA 2 - PREGUNTA
-     Contiene GIF animado
-============================= -->
 <div id="screen2" class="screen">
     <h1 class="question">¿Quieres ser mi San Valentín?</h1>
-    <!-- Imagen animada de la pantalla 2 -->
-    <!-- <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" width="140">            -->
     <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDk5enMyNHF1MzI1NzY3aHRydGg3ODN2ZWk1YXF6a3FmbXpnendmeiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KOCT8iUWuXg6MSoytA/giphy.gif" width="180">
     <div>
         <button id="yes" onclick="sayYes()">Sí</button>
-        <button id="no" onmouseover="moveButton()">No</button>
+        <button id="no" onmouseenter="moveButton()" ontouchstart="moveButton()">No</button>
     </div>
 </div>
 
-<!-- ============================
-     PANTALLA FINAL
-     Contiene imagen animada y mensajes
-============================= -->
 <div id="finalScreen" class="screen">
-    <div class="final-title" id="finalTitle"> Buenaaaa !! A la primera, estoy suponiendo 👀 jajajaja </div>
-    <!-- Imagen animada de la pantalla final -->
-    <img class="final-img" id="finalImg" src="https://i.giphy.com/l0MYt5jPR6QX5pnqM.webp">
-    <div class="final-subtitle" id="finalSubtitle"> Vamos por nuestro día especial Mi Amor Te Amo !!  </div>
+    <div class="final-title">Buenaaaa !! A la primera, estoy suponiendo 👀 jajajaja</div>
+    <img class="final-img" src="https://i.giphy.com/l0MYt5jPR6QX5pnqM.webp">
+    <div class="final-subtitle">Vamos por nuestro día especial Mi Amor Te Amo !!</div>
     <button id="repeat" onclick="location.reload()">Repito !!</button>
 </div>
 
 <script>
+
 // TRANSICIÓN INICIAL
 setTimeout(()=>{
     document.getElementById("screen1").style.opacity="0";
@@ -209,7 +184,7 @@ setTimeout(()=>{
     },1500);
 },4000);
 
-// BOTÓN NO DINÁMICO
+// MENSAJES BOTÓN NO
 const messages=[
 "No me atrapas",
 "No ?",
@@ -225,15 +200,22 @@ const messages=[
 "Yaaaa no te hagas bien que quieres",
 "Bye"
 ];
+
 let messageIndex=0;
 
 function moveButton(){
-    const button=document.getElementById("no");
-    button.innerText=messages[messageIndex];
-    messageIndex=(messageIndex+1)%messages.length;
-    button.style.position="absolute";
-    button.style.top=Math.random()*80+"%";
-    button.style.left=Math.random()*80+"%";
+    const button = document.getElementById("no");
+
+    button.innerText = messages[messageIndex];
+    messageIndex = (messageIndex + 1) % messages.length;
+
+    button.style.position = "fixed";
+
+    const maxX = window.innerWidth - button.offsetWidth;
+    const maxY = window.innerHeight - button.offsetHeight;
+
+    button.style.left = Math.random() * maxX + "px";
+    button.style.top = Math.random() * maxY + "px";
 }
 
 // LLUVIA CORAZONES
@@ -276,6 +258,7 @@ function sayYes(){
         },1500);
     },800);
 }
+
 </script>
 
 </body>
