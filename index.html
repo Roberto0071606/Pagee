@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valentine 💕</title>
 
+<!-- Fuente romántica -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
 <style>
 body{
     margin:0;
@@ -27,13 +30,13 @@ body{
 
 /* PANTALLA 1 */
 #screen1{
-    background:#8B0000;
+    background:white;
 }
 
 .arcade-title{
-    font-size:4em;
+    font-family: 'Great Vibes', cursive;
+    font-size:5em;
     color:#ff99cc;
-    text-shadow:0 0 10px #ff99cc,0 0 20px #ff66b2,0 0 40px #ff3399;
     animation:pulse 2s infinite alternate;
 }
 
@@ -101,12 +104,11 @@ button{
 .letter{
     width:80%;
     max-width:500px;
-    min-height:80px;
-    border-right:2px solid #ff66b2;
+    min-height:50px;
     white-space:pre-wrap;
     overflow:hidden;
     margin:20px auto;
-    font-size:1.1em;
+    font-size:1.3em;
 }
 
 #repeat{
@@ -143,8 +145,9 @@ button{
 }
 
 @media(max-width:600px){
-    .arcade-title{font-size:2.5em;}
+    .arcade-title{font-size:3em;}
     .question{font-size:1.5em;}
+    .letter{font-size:1em;}
 }
 </style>
 </head>
@@ -168,8 +171,8 @@ button{
 
 <!-- SCREEN FINAL -->
 <div id="finalScreen" class="screen">
-    <h1 class="final-title">Sabía que dirías que sí 💖</h1>
-    <img class="final-img" src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
+    <h1 class="final-title">Vamos por un día más especial juntos 💖</h1>
+    <img class="final-img" src="https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif">
     <div class="letter" id="letter"></div>
     <button id="repeat" onclick="location.reload()">Repito !! 💚</button>
 </div>
@@ -237,8 +240,8 @@ function explodeHearts(){
     }
 }
 
-// CARTA ANIMADA
-const text="Desde el primer momento sabía que eras especial. Hoy solo confirmo que quiero seguir creando momentos contigo. Gracias por decir que sí 💕";
+// CARTA ANIMADA (opcional, aquí queda lista para agregar texto extra)
+const text="";
 
 function typeLetter(){
     let i=0;
