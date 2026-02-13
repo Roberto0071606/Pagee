@@ -99,7 +99,7 @@ button{
 
 .final-img{
     width:180px;
-    margin:15px 0;
+    margin:15px 0 40px 0; /* arriba 15px, abajo 40px */
 }
 
 .final-subtitle{
@@ -108,9 +108,15 @@ button{
 }
 
 #repeat{
-    background:#99ff99; /* Verde claro como el Si */
-    color:white;
+    background:#808080; /* Botón color plomo */
+    color:white;        /* Letras blancas */
+    font-weight:bold;   /* Negrita */
     margin-top:20px;
+    padding:15px 35px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    transition:0.3s;
 }
 
 /* Corazones */
@@ -187,7 +193,7 @@ button{
     <div class="final-title" id="finalTitle"> Buenaaaa !! A la primera, estoy suponiendo 👀 jajajaja </div>
     <!-- Imagen animada de la pantalla final -->
     <img class="final-img" id="finalImg" src="https://i.giphy.com/l0MYt5jPR6QX5pnqM.webp">
-    <div class="final-subtitle" id="finalSubtitle"> Vamos por nuestro día especial mi amor TE AMO </div>
+    <div class="final-subtitle" id="finalSubtitle"> Vamos por nuestro día especial mi amor Te Amo  </div>
     <button id="repeat" onclick="location.reload()">Repito !!</button>
 </div>
 
