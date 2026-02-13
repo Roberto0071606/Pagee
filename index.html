@@ -26,16 +26,13 @@ body{
     transition:opacity 1.5s ease;
 }
 
-#screen1{
-    background:white;
-}
+#screen1{ background:white; }
 
 .arcade-title{
-    font-family: 'Lobster', cursive;
+    font-family:'Lobster',cursive;
     font-size:4.5em;
     color:#808080;
     animation:pulse 2s infinite alternate;
-    text-align:center;
 }
 
 @keyframes pulse{
@@ -86,31 +83,15 @@ button{
     pointer-events:none;
 }
 
-.final-title{
-    font-size:2em;
-    margin:10px;
-}
-
-.final-img{
-    width:180px;
-    margin:15px 0 40px 0;
-}
-
-.final-subtitle{
-    font-size:1.2em;
-    margin-bottom:15px;
-}
+.final-title{ font-size:2em; margin:10px; }
+.final-img{ width:180px; margin:15px 0 40px 0; }
+.final-subtitle{ font-size:1.2em; margin-bottom:15px; }
 
 #repeat{
     background:#808080;
     color:white;
     font-weight:bold;
     margin-top:20px;
-    padding:15px 35px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    transition:0.3s;
 }
 
 .heart{
@@ -120,10 +101,7 @@ button{
 }
 
 @keyframes fall{
-    to{
-        transform:translateY(100vh);
-        opacity:0;
-    }
+    to{ transform:translateY(100vh); opacity:0; }
 }
 
 .explosion{
@@ -142,28 +120,29 @@ button{
 @media(max-width:600px){
     .arcade-title{font-size:3em;}
     .question{font-size:1.4em;}
-    .final-title{font-size:1.5em;}
-    .final-subtitle{font-size:1em;}
 }
 </style>
 </head>
 
 <body>
 
+<!-- PANTALLA 1 -->
 <div id="screen1" class="screen">
     <h1 class="arcade-title">🌷 Valentín 🌷</h1>
     <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdTRmYnk4M2U2cHY0ODd6d2g5dnVyd2ZmZDVjNW1lbGdvdjg5emw1diZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l4KhIMlM9cEEcTXW0/giphy.gif" width="280">
 </div>
 
+<!-- PANTALLA 2 -->
 <div id="screen2" class="screen">
     <h1 class="question">¿Quieres ser mi San Valentín?</h1>
     <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDk5enMyNHF1MzI1NzY3aHRydGg3ODN2ZWk1YXF6a3FmbXpnendmeiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KOCT8iUWuXg6MSoytA/giphy.gif" width="180">
     <div>
         <button id="yes" onclick="sayYes()">Sí</button>
-        <button id="no" onmouseenter="moveButton()" ontouchstart="moveButton()">No</button>
+        <button id="no">No</button>
     </div>
 </div>
 
+<!-- PANTALLA FINAL -->
 <div id="finalScreen" class="screen">
     <div class="final-title">Buenaaaa !! A la primera, estoy suponiendo 👀 jajajaja</div>
     <img class="final-img" src="https://i.giphy.com/l0MYt5jPR6QX5pnqM.webp">
@@ -175,16 +154,18 @@ button{
 
 // TRANSICIÓN INICIAL
 setTimeout(()=>{
-    document.getElementById("screen1").style.opacity="0";
+    screen1.style.opacity="0";
     setTimeout(()=>{
-        document.getElementById("screen1").style.display="none";
-        let s2=document.getElementById("screen2");
-        s2.style.opacity="1";
-        s2.style.pointerEvents="all";
+        screen1.style.display="none";
+        screen2.style.opacity="1";
+        screen2.style.pointerEvents="all";
     },1500);
 },4000);
 
-// MENSAJES BOTÓN NO
+// ================= BOTÓN NO =================
+
+const buttonNo = document.getElementById("no");
+
 const messages=[
 "No me atrapas",
 "No ?",
@@ -202,23 +183,40 @@ const messages=[
 ];
 
 let messageIndex=0;
+let isMoving=false;
 
 function moveButton(){
-    const button = document.getElementById("no");
 
-    button.innerText = messages[messageIndex];
-    messageIndex = (messageIndex + 1) % messages.length;
+    if(isMoving) return;
+    isMoving=true;
 
-    button.style.position = "fixed";
+    buttonNo.innerText=messages[messageIndex];
+    messageIndex++;
 
-    const maxX = window.innerWidth - button.offsetWidth;
-    const maxY = window.innerHeight - button.offsetHeight;
+    if(messageIndex>=messages.length){
+        messageIndex=0;
+    }
 
-    button.style.left = Math.random() * maxX + "px";
-    button.style.top = Math.random() * maxY + "px";
+    buttonNo.style.position="fixed";
+
+    const maxX=window.innerWidth-buttonNo.offsetWidth;
+    const maxY=window.innerHeight-buttonNo.offsetHeight;
+
+    buttonNo.style.left=Math.random()*maxX+"px";
+    buttonNo.style.top=Math.random()*maxY+"px";
+
+    setTimeout(()=>{ isMoving=false; },200);
 }
 
-// LLUVIA CORAZONES
+buttonNo.addEventListener("mouseenter", moveButton);
+
+buttonNo.addEventListener("touchstart",(e)=>{
+    e.preventDefault();
+    moveButton();
+});
+
+// ================= EFECTOS =================
+
 function createHeart(){
     const heart=document.createElement("div");
     heart.classList.add("heart");
@@ -230,7 +228,6 @@ function createHeart(){
 }
 setInterval(createHeart,300);
 
-// EXPLOSIÓN
 function explodeHearts(){
     for(let i=0;i<25;i++){
         const heart=document.createElement("div");
@@ -245,16 +242,14 @@ function explodeHearts(){
     }
 }
 
-// AL PRESIONAR SÍ
 function sayYes(){
     explodeHearts();
     setTimeout(()=>{
-        document.getElementById("screen2").style.opacity="0";
+        screen2.style.opacity="0";
         setTimeout(()=>{
-            document.getElementById("screen2").style.display="none";
-            let final=document.getElementById("finalScreen");
-            final.style.opacity="1";
-            final.style.pointerEvents="all";
+            screen2.style.display="none";
+            finalScreen.style.opacity="1";
+            finalScreen.style.pointerEvents="all";
         },1500);
     },800);
 }
